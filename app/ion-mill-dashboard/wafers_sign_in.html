@@ -86,7 +86,7 @@ if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
   <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@500;600;700&amp;family=Commissioner:wght@400;500;600&amp;family=Source+Code+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
 
-  <link rel="stylesheet" href="/assets/login.css">
+  <link rel="stylesheet" href="./assets/login.css">
 </head>
 
 <body class="bg-background text-on-surface font-body antialiased">
@@ -98,8 +98,12 @@ if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
           <!-- Login Header -->
           <div class="flex flex-col gap-xs border-b border-border-subtle pb-lg">
             <div class="flex flex-wrap items-center justify-between gap-sm">
-              <h1 data-design-text-token="headline-md" class="font-headline text-headline-md text-on-surface">Welcome Back</h1>
+              <h1 data-design-text-token="headline-md" class="font-headline text-headline-md text-on-surface" data-i18n="loginHeading">Welcome Back</h1>
               <span data-design-text-token="mono-xs" class="font-mono text-mono-xs px-sm py-xs rounded-xs bg-primary-soft text-on-primary-soft">SSO / LDAP</span>
+              <button type="button" id="login-language-toggle"
+                      class="rounded-sm border border-border-subtle px-md py-xs text-label-md">
+                한국어
+              </button>
             </div>
             <p data-design-text-token="body-md" class="font-body text-body-md text-on-surface-variant">
               Sign in to access your equipment intelligence platform.
@@ -108,10 +112,10 @@ if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
 
           <!-- Login Form -->
           <form class="flex flex-col gap-lg" method="post" action="/login">
-  <p id="login-error" role="alert" hidden>ID 및 password 불일치.</p>
+  <p id="login-error" data-i18n="loginError" role="alert" hidden>ID 및 password 불일치.</p>
             <!-- Employee ID or Email -->
             <div class="flex flex-col gap-xs">
-              <label for="employee-id" data-design-text-token="label-md" class="font-label text-label-md text-on-surface">
+              <label for="employee-id" data-design-text-token="label-md" class="font-label text-label-md text-on-surface" data-i18n="loginIdLabel">
                 Employee ID or Email
               </label>
               <div class="relative">
@@ -122,7 +126,7 @@ if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
 
             <!-- Password with Visibility Toggle -->
             <div class="flex flex-col gap-xs">
-              <label for="password-input" data-design-text-token="label-md" class="font-label text-label-md text-on-surface">
+              <label for="password-input" data-design-text-token="label-md" class="font-label text-label-md text-on-surface" data-i18n="loginPasswordLabel">
                 Password
               </label>
               <div class="relative">
@@ -148,7 +152,7 @@ if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
 
             <!-- Sign In Button -->
             <button type="submit" class="w-full py-sm px-lg rounded-sm bg-primary text-on-primary hover:opacity-90 active:opacity-80 focus-visible:ring-2 focus-visible:ring-secondary-accent disabled:opacity-40 disabled:cursor-not-allowed transition-opacity duration-state-change flex items-center justify-center gap-sm cursor-pointer">
-              <span data-design-text-token="title-sm" class="font-title text-title-sm">Sign In</span>
+              <span data-design-text-token="title-sm" class="font-title text-title-sm" data-i18n="loginSubmit">Sign In</span>
               <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
             </button>
           </form>
@@ -243,10 +247,10 @@ if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
         </svg>
 
         <!-- Top Brand Identity Block -->
-        <div class="relative z-10 flex flex-col gap-xl max-w-lg">
-          <div class="flex items-center gap-lg">
+        <div class="login-brand-intro relative z-10 flex w-full max-w-lg flex-col gap-xl self-end text-right">
+          <div class="flex items-center justify-end gap-lg">
             <!-- Minimal Geometric Semiconductor Wafer Symbol -->
-            <div class="w-14 h-14 rounded-md bg-panel border border-border-subtle flex items-center justify-center shrink-0">
+            <div class="order-last w-14 h-14 rounded-md bg-panel border border-border-subtle flex items-center justify-center shrink-0">
               <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
                 <!-- Circular Wafer Outline with Bottom Notch -->
                 <path d="M18 3C26.284 3 33 9.716 33 18C33 25.3 27.78 31.38 20.85 32.73C20.38 31.68 19.28 31 18 31C16.72 31 15.62 31.68 15.15 32.73C8.22 31.38 3 25.3 3 18C3 9.716 9.716 3 18 3Z" stroke="#20C9D2" stroke-width="1.6"></path>
@@ -265,18 +269,17 @@ if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
             </div>
           </div>
 
-          <div class="flex flex-col gap-sm border-l-2 border-primary pl-lg">
+          <div class="flex flex-col gap-sm border-r-2 border-primary pr-lg">
             <h3 data-design-text-token="headline-md" class="font-headline text-headline-md text-on-surface">
-              Advanced Equipment Monitoring &amp; Process Analytics
+              Advanced Equipment Monitoring <br>
+              &amp; Process Analytics
             </h3>
             <p data-design-text-token="body-md" class="font-body text-body-md text-on-surface-variant">
-              Unified fab telemetry, chamber diagnostics, wafer yield correlation, and real-time alarm governance across lithography, etch, and deposition clusters.
+              Unified fab telemetry, chamber diagnostics, wafer yield correlation, <br> and real-time alarm governance.
             </p>
           </div>
-        </div>
-
-        <!-- Bottom Left Technical Readout & System Status Indicator -->
-        <div class="relative z-10 flex flex-wrap items-center justify-between gap-lg pt-xl border-t border-border-subtle">
+          <!-- Bottom Left Technical Readout & System Status Indicator -->
+        <div class="mb-md relative z-10 flex flex-wrap items-center justify-end gap-lg pt-md border-t border-border-subtle">
           <div class="flex flex-wrap items-center gap-lg">
             <div class="bg-panel border border-border-subtle rounded-sm px-md py-sm flex items-center gap-sm">
               <span class="w-2 h-2 shrink-0 rounded-full bg-accent-success"></span>
@@ -297,6 +300,9 @@ if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
 
           <span data-design-text-token="mono-xs" class="font-mono text-mono-xs text-on-surface-variant">CLUSTER: FAB-04-NORTH</span>
         </div>
+
+        
+        </div>
       </section>
     </main>
 
@@ -309,7 +315,7 @@ if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
       </div>
 
       <div class="login-footer-group">
-        <span data-design-text-token="mono-xs" class="font-mono text-mono-xs text-primary">System Version 1.0</span>
+        <span data-design-text-token="mono-xs" class="font-mono text-mono-xs text-primary">System Version 0.1</span>
         <span class="login-footer-divider text-border-strong" aria-hidden="true">|</span>
         <span data-design-text-token="label-xs" class="font-label text-label-xs text-on-surface-variant">© 2026 WAFERS Semiconductor Systems. All rights reserved.</span>
       </div>
@@ -331,6 +337,8 @@ if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
     })();
   </script>
 
-<script defer src="/assets/login.js"></script>
+<script defer src="./assets/login.js"></script>
+
 
 </body></html>
+
